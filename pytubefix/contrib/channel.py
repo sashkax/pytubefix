@@ -27,7 +27,7 @@ class Channel(Playlist):
         """Construct a :class:`Channel <Channel>`.
         :param str url:
             A valid YouTube channel URL.
-         :param dict proxies:
+        :param dict proxies:
             (Optional) A dict mapping protocol to proxy address which will be used by pytube.
         :param bool use_oauth:
             (Optional) Prompt the user to authenticate to YouTube.
@@ -570,6 +570,18 @@ class Channel(Playlist):
         """
         self.html_url = self.channel_url  # get the url of the channel home page
         return self.initial_data['metadata']['channelMetadataRenderer']['avatar']['thumbnails'][0]['url']
+
+    @property
+    def banner_url(self) -> str:
+        """extract the banner image from the json of the channel home page
+
+        :rtype: str
+        :return: a string with the url of the channel's banner image
+        """
+        self.html_url = self.channel_url  # get the url of the channel home page
+        # return self.initial_data['metadata']['channelMetadataRenderer']['avatar']['thumbnails'][0]['url']
+        return self.initial_data['header']['pageHeaderRenderer']['content']['pageHeaderViewModel']['banner'][
+            'imageBannerViewModel']['image']['sources'][0]['url']
 
     @property
     def home(self) -> list:
