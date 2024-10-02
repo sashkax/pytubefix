@@ -584,6 +584,18 @@ class Channel(Playlist):
             'imageBannerViewModel']['image']['sources'][0]['url']
 
     @property
+    def banner_url_big(self) -> str:
+        """extract the big banner image from the json of the channel home page
+
+        :rtype: str
+        :return: a string with the url of the channel's big banner image
+        """
+        self.html_url = self.channel_url  # get the url of the channel home page
+        # return self.initial_data['metadata']['channelMetadataRenderer']['avatar']['thumbnails'][0]['url']
+        return self.initial_data['header']['pageHeaderRenderer']['content']['pageHeaderViewModel']['banner'][
+            'imageBannerViewModel']['image']['sources'][-1]['url']
+
+    @property
     def home(self) -> list:
         """ Yields YouTube, Playlist and Channel objects from the channel home page.
 
